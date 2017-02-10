@@ -37,14 +37,12 @@ void IKRosI::initDevice()
   for (int i = 0; i < n_in; i++) {
     char topicname[] = "input00";
     snprintf(topicname, sizeof(topicname), "input%02d", i);
-    in_pubs_[i] = nh_.advertise<std_msgs::Bool>(
-        topicname, 1);
+    in_pubs_.push_back(nh_.advertise<std_msgs::Bool>(topicname, 1));
   }
   for (int i = 0; i < n_sensors; i++) {
     char topicname[] = "sensor00";
     snprintf(topicname, sizeof(topicname), "sensor%02d", i);
-    sensor_pubs_[i] = nh_.advertise<std_msgs::Float32>(
-        topicname, 1);
+    sensor_pubs_.push_back(nh_.advertise<std_msgs::Float32>(topicname, 1));
   }
 }
 
@@ -57,7 +55,7 @@ void IKRosI::sensorHandler(int index, int sensorValue)
   CPhidgetInterfaceKit_getSensorRawValue(ik_handle_, index, &rawval);
   std_msgs::Float32 msg;
   msg.data = float(rawval)/4095.0f;
-  if (sensor_pubs_[index]) {
+  if ((sensor_pubs_.size() > index) && (sensor_pubs_[index])) {
     sensor_pubs_[index].publish(msg);
   }
 }
@@ -68,7 +66,7 @@ void IKRosI::inputHandler(int index, int inputValue)
   IK::inputHandler(index, inputValue);
   std_msgs::Bool msg;
   msg.data = inputValue != 0;
-  if (in_pubs_[index]) {
+  if ((in_pubs_.size() > index) && (in_pubs_[index])) {
     in_pubs_[index].publish(msg);
   }
 }

@@ -6,6 +6,8 @@
 #include <std_msgs/Float32.h>
 #include <phidgets_api/ik.h>
 
+#include <vector>
+
 namespace phidgets {
 
 class IKRosI : public IK 
@@ -20,8 +22,8 @@ class IKRosI : public IK
     int n_in;
     int n_out;
     int n_sensors;
-    ros::Publisher in_pubs_[16];
-    ros::Publisher sensor_pubs_[16];
+    std::vector<ros::Publisher> in_pubs_;
+    std::vector<ros::Publisher> sensor_pubs_;
 
   private:
 
