@@ -19,7 +19,10 @@ IKRosI::IKRosI(ros::NodeHandle nh, ros::NodeHandle nh_private):
 void IKRosI::initDevice()
 {
   ROS_INFO("Opening device");
-  open(-1);
+  int serial_num;
+  if (!nh_private_.getParam("serial", serial_num))
+    serial_num = -1; //defalut open any device
+  open(serial_num);
 
   ROS_INFO("Waiting for IK to be attached...");
   int result = waitForAttachment(10000);
