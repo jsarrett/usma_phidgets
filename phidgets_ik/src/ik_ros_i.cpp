@@ -57,7 +57,9 @@ void IKRosI::sensorHandler(int index, int sensorValue)
   CPhidgetInterfaceKit_getSensorRawValue(ik_handle_, index, &rawval);
   std_msgs::Float32 msg;
   msg.data = float(rawval)/4095.0f;
-  sensor_pubs_[index].publish(msg);
+  if (sensor_pubs_[index]) {
+    sensor_pubs_[index].publish(msg);
+  }
 }
 
 void IKRosI::inputHandler(int index, int inputValue)
@@ -66,7 +68,9 @@ void IKRosI::inputHandler(int index, int inputValue)
   IK::inputHandler(index, inputValue);
   std_msgs::Bool msg;
   msg.data = inputValue != 0;
-  in_pubs_[index].publish(msg);
+  if (in_pubs_[index]) {
+    in_pubs_[index].publish(msg);
+  }
 }
 
 
