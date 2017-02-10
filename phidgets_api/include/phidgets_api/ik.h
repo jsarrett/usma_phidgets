@@ -14,10 +14,12 @@ class IK: public Phidget
   protected:
  
     CPhidgetInterfaceKitHandle ik_handle_;
-    
     virtual void sensorHandler(
       int index, 
       int sensorValue);
+    virtual void inputHandler(
+      int index, 
+      int inputValue);
 
   private:
 
@@ -26,6 +28,11 @@ class IK: public Phidget
       void * userptr,
       int index, 
       int sensorValue);
+    static int InputHandler(
+      CPhidgetInterfaceKitHandle ik, 
+      void * userptr,
+      int index, 
+      int inputValue);
 };
 
 } //namespace phidgets

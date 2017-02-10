@@ -14,10 +14,9 @@ IK::IK():
 
   // register base class callbacks
   Phidget::registerHandlers();
-  
+
   // register ik data callback
   CPhidgetInterfaceKit_set_OnSensorChange_Handler(ik_handle_, SensorHandler, this);
-
 }
 
 
@@ -30,6 +29,17 @@ int IK::SensorHandler(CPhidgetInterfaceKitHandle ik, void *userptr, int index, i
 void IK::sensorHandler(int index, int sensorValue)
 {
   printf("index: %d, value: %d\n", index, sensorValue);
+}
+
+int IK::InputHandler(CPhidgetInterfaceKitHandle ik, void *userptr, int index, int inputValue)
+{
+  ((IK*)userptr)->inputHandler(index, inputValue);
+  return 0;
+}
+
+void IK::inputHandler(int index, int inputValue)
+{
+  printf("index: %d, value: %d\n", index, inputValue);
 }
 
 } // namespace phidgets
