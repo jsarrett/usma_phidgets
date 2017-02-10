@@ -15,6 +15,7 @@ include_directories(include ${catkin_INCLUDE_DIRS})
 
 add_library(phidgets_api src/phidget.cpp
                          src/imu.cpp
+                         src/ik.cpp
                          src/ir.cpp)
 
 add_dependencies(phidgets_api ${catkin_EXPORTED_TARGETS})
