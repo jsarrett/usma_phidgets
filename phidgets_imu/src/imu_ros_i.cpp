@@ -136,6 +136,7 @@ void ImuRosI::initDevice()
 		const char *err;
 		CPhidget_getErrorDescription(result, &err);
 		ROS_FATAL("Problem waiting for IMU attachment: %s Make sure the USB cable is connected and you have executed the phidgets_api/share/setup-udev.sh script.", err);
+        exit(result);
 	}
 
   // calibrate on startup

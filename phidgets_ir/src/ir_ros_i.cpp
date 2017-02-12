@@ -24,6 +24,7 @@ void IRRosI::initDevice()
 	  const char *err;
 		CPhidget_getErrorDescription(result, &err);
 		ROS_FATAL("Problem waiting for IR attachment: %s", err);
+        exit(result);
 	}
 }
 
